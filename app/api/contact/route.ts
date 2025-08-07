@@ -5,6 +5,8 @@ export async function POST(req: NextRequest) {
   const body = await req.json();
   const { token, formData } = body;
 
+  // console.log('token: ', token)
+  console.log('formData: ', formData)
   console.log('token: ', token)
 
   if (!token) {
@@ -12,12 +14,14 @@ export async function POST(req: NextRequest) {
   }
 
   const verifyRes = await fetch("https://www.google.com/recaptcha/api/siteverify", {
-    method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    method: "POST",
     body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`,
   })
 
   const verification = await verifyRes.json();
+
+  console.log('verification: ', verification)
 
   if (!verification.success || verification.score < 0.5) {
     return NextResponse.json({ error: "Invalid reCAPTCHA token" }, { status: 400 });

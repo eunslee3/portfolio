@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useReCaptcha } from "next-recaptcha-v3"
+import { useState } from 'react';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 
 export function ContactSection() {
@@ -11,27 +12,69 @@ export function ContactSection() {
     message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitMessage, setSubmitMessage] = useState('');
+  const [submitMessage, setSubmitMessage] = useState({ message: '', status: '' });
+  const {
+    /** Execute reCAPTCHA */
+    executeRecaptcha ,
+    /** reCAPTCHA_site_key */
+    reCaptchaKey,
+    /** Global ReCaptcha object */
+    grecaptcha,
+    /** Is ReCaptcha script loaded */
+    loaded,
+    /** Is ReCaptcha script failed to load */
+    error,
+  } = useReCaptcha();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  console.log('formData: ', formData)
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-
-    // Simulate form submission
-    setTimeout(() => {
+  
+    try {
+      if (!process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY) {
+        console.error('reCAPTCHA site key is not configured');
+        return;
+      }
+      const token = await grecaptcha?.execute(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY, { action: "form_submit" })
+      console.log('token: ', token)
+      console.log('formData: ', formData)
+  
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...formData, token }),
+      });
+  
+      if (!response.ok) {
+        setSubmitMessage({
+          message: 'Failed to send message. Please try again.',
+          status: 'error',
+        });
+      } else {
+        setSubmitMessage({
+          message: "Thanks for your message! I'll get back to you soon.",
+          status: 'success',
+        });
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      }
+    } catch (error) {
+      console.error('reCAPTCHA error:', error);
+      setSubmitMessage({
+        message: 'Something went wrong. Please try again later.',
+        status: 'error',
+      });
+    } finally {
       setIsSubmitting(false);
-      setSubmitMessage("Thanks for your message! I'll get back to you soon.");
-      setFormData({ name: '', email: '', subject: '', message: '' });
-      
-      // Clear success message after 5 seconds
-      setTimeout(() => setSubmitMessage(''), 5000);
-    }, 1500);
+    }
   };
+  
 
   return (
     <section id="contact" className="py-20 bg-slate-800">
@@ -97,11 +140,18 @@ export function ContactSection() {
 
           <div>
             <h3 className="text-2xl font-bold mb-6">Send a Message</h3>
-            {submitMessage && (
+            {submitMessage.status === "success" ? 
               <div className="bg-green-500/20 text-green-400 p-4 rounded-lg mb-6">
-                {submitMessage}
+                {submitMessage.message}
               </div>
-            )}
+              :
+              submitMessage.status === "error" ?
+                <div className="bg-red-500/20 text-red-400 p-4 rounded-lg mb-6">
+                  {submitMessage.message}
+                </div>
+                :
+                null
+            }
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label htmlFor="name" className="block mb-2 text-white/80">

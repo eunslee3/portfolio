@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 import './globals.css'
+import Script from 'next/script'
+import RecaptchaWrapper from '@/components/ReCaptchaWrapper'
 
 export const metadata: Metadata = {
   title: 'Sam Lee',
@@ -26,9 +28,18 @@ export default function RootLayout({
             --font-sans: ${GeistSans.variable};
             --font-mono: ${GeistMono.variable};
           }
-        `}</style>
+        `}
+        </style>
+        <Script
+          src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
+          strategy="afterInteractive"
+        />
       </head>
-      <body>{children}</body>
+      <body>
+        <RecaptchaWrapper>
+          {children}
+        </RecaptchaWrapper>
+      </body>
     </html>
   )
 }
