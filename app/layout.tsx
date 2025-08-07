@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: 'Sam Lee',
   description: "Sam Lee's Portfolio",
   generator: 'v0.dev',
+  icons: {
+    icon: '/sl_logo_rounded.svg',
+  },
 }
 
 export default function RootLayout({

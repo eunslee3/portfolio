@@ -34,8 +34,8 @@ export function AboutSection() {
     { name: 'React', level: 85 },
     { name: 'TypeScript', level: 80 },
     { name: 'Node.js', level: 75 },
-    { name: 'Python', level: 70 },
-    { name: 'SQL', level: 65 },
+    { name: 'Next.js', level: 85 },
+    { name: 'SQL', level: 50 },
   ];
 
   const services = [
@@ -73,25 +73,22 @@ export function AboutSection() {
           <div>
             <h3 className="text-2xl font-bold mb-4">Who am I?</h3>
             <p className="text-white/70 mb-4">
-              {'I\'m a passionate software engineer with 5+ years of experience building web applications. I specialize in creating efficient, scalable, and user-friendly solutions to complex problems.'}
+              {"I'm a self-taught software engineer with a track record of building real-world solutions that serve educators, small businesses, and communities. From streamlining access for 7,000+ educators to launching tools that help local businesses grow their presence, I focus on clean, user-centered development that makes a difference."}
             </p>
             <p className="text-white/70 mb-4">
-              My journey in software development began at the University of
-              Technology, where I earned my degree in Computer Science. Since
-              then, {'I\'ve'} worked with startups and established companies,
-              contributing to projects that have impacted thousands of users.
+              My path into tech was unconventional, shaped by grit and curiosity. Since breaking into the field, I've worked across the stack, led impactful projects, and kept growing by building.
             </p>
             <p className="text-white/70 mb-6">
-              {'When I\'m not coding, you can find me hiking, reading about new technologies, or contributing to open-source projects.'}
+              {"When I'm not coding, I’m usually cooking or chasing down ideas that won't leave me alone."}
             </p>
             <div className="grid grid-cols-2 gap-4 text-white/70">
               <div>
-                <p><strong>Name:</strong> John Smith</p>
-                <p><strong>Experience:</strong> 5+ years</p>
+                <p><strong>Name:</strong> Sam Lee</p>
+                <p><strong>Experience:</strong> 2+ years</p>
               </div>
               <div>
-                <p><strong>Email:</strong> john@example.com</p>
-                <p><strong>Location:</strong> San Francisco, CA</p>
+                <p><strong>Email:</strong> lee.eunseong7856@gmail.com</p>
+                <p><strong>Location:</strong> Lawrence, KS</p>
               </div>
             </div>
           </div>
