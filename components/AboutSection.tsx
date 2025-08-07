@@ -1,0 +1,141 @@
+'use client';
+
+import React, { useEffect, useState, useRef } from 'react';
+import { Code, Server, Paintbrush, Database } from 'lucide-react';
+
+export function AboutSection() {
+  const [isVisible, setIsVisible] = useState(false);
+  const skillsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (skillsRef.current) {
+      observer.observe(skillsRef.current);
+    }
+
+    return () => {
+      if (skillsRef.current) {
+        observer.disconnect();
+      }
+    };
+  }, []);
+
+  const skills = [
+    { name: 'JavaScript', level: 90 },
+    { name: 'React', level: 85 },
+    { name: 'TypeScript', level: 80 },
+    { name: 'Node.js', level: 75 },
+    { name: 'Python', level: 70 },
+    { name: 'SQL', level: 65 },
+  ];
+
+  const services = [
+    {
+      icon: <Code className="h-8 w-8 text-purple-500" />,
+      title: 'Frontend Development',
+      description: 'Building responsive and interactive user interfaces with modern frameworks and libraries.',
+    },
+    {
+      icon: <Server className="h-8 w-8 text-teal-500" />,
+      title: 'Backend Development',
+      description: 'Creating robust server-side applications with scalable architecture and efficient APIs.',
+    },
+    {
+      icon: <Paintbrush className="h-8 w-8 text-amber-500" />,
+      title: 'UI/UX Design',
+      description: 'Designing intuitive and aesthetically pleasing user experiences that delight users.',
+    },
+    {
+      icon: <Database className="h-8 w-8 text-blue-500" />,
+      title: 'Database Design',
+      description: 'Structuring efficient and scalable database solutions for optimal data management.',
+    },
+  ];
+
+  return (
+    <section id="about" className="py-20 bg-slate-800">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">About Me</h2>
+          <div className="h-1 w-20 bg-purple-600 mx-auto"></div>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h3 className="text-2xl font-bold mb-4">Who am I?</h3>
+            <p className="text-white/70 mb-4">
+              {'I\'m a passionate software engineer with 5+ years of experience building web applications. I specialize in creating efficient, scalable, and user-friendly solutions to complex problems.'}
+            </p>
+            <p className="text-white/70 mb-4">
+              My journey in software development began at the University of
+              Technology, where I earned my degree in Computer Science. Since
+              then, {'I\'ve'} worked with startups and established companies,
+              contributing to projects that have impacted thousands of users.
+            </p>
+            <p className="text-white/70 mb-6">
+              {'When I\'m not coding, you can find me hiking, reading about new technologies, or contributing to open-source projects.'}
+            </p>
+            <div className="grid grid-cols-2 gap-4 text-white/70">
+              <div>
+                <p><strong>Name:</strong> John Smith</p>
+                <p><strong>Experience:</strong> 5+ years</p>
+              </div>
+              <div>
+                <p><strong>Email:</strong> john@example.com</p>
+                <p><strong>Location:</strong> San Francisco, CA</p>
+              </div>
+            </div>
+          </div>
+
+          <div ref={skillsRef}>
+            <h3 className="text-2xl font-bold mb-6">My Skills</h3>
+            <div className="space-y-4">
+              {skills.map((skill, index) => (
+                <div key={skill.name}>
+                  <div className="flex justify-between mb-1">
+                    <span>{skill.name}</span>
+                    <span>{skill.level}%</span>
+                  </div>
+                  <div className="h-2 w-full bg-slate-700 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-gradient-to-r from-purple-600 to-indigo-500 rounded-full transition-all duration-1000 ease-out"
+                      style={{
+                        width: isVisible ? `${skill.level}%` : '0%',
+                        transitionDelay: `${index * 150}ms`,
+                      }}
+                    ></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-20">
+          <h3 className="text-2xl font-bold mb-10 text-center">What I Do</h3>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {services.map((service, index) => (
+              <div
+                key={index}
+                className="bg-slate-900 p-6 rounded-lg hover:translate-y-[-5px] transition-transform duration-300 border border-slate-700 hover:border-purple-500/50"
+              >
+                <div className="mb-4">{service.icon}</div>
+                <h4 className="text-xl font-bold mb-2">{service.title}</h4>
+                <p className="text-white/70">{service.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
