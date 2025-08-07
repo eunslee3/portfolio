@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
     from: process.env.EMAIL_USER,
     to: process.env.EMAIL_TO,
     subject: "Contact Form - Portfolio",
-    text: `Name: ${name}\nEmail: ${email}\Subject: ${subject}\nMessage: ${message}`,
+    text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\nMessage: ${message}`,
   };
   
   await transporter.sendMail(mailOptions);
