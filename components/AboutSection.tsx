@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState, useRef } from 'react';
-import { Code, Server, Paintbrush, Database } from 'lucide-react';
+import { Code, Server, Paintbrush, Database, Brain } from 'lucide-react';
 
 export function AboutSection() {
   const [isVisible, setIsVisible] = useState(false);
@@ -50,9 +50,9 @@ export function AboutSection() {
       description: 'Creating robust server-side applications with scalable architecture and efficient APIs.',
     },
     {
-      icon: <Paintbrush className="h-8 w-8 text-amber-500" />,
-      title: 'UI/UX Design',
-      description: 'Designing intuitive and aesthetically pleasing user experiences that delight users.',
+      icon: <Brain className="h-8 w-8 text-amber-500" />,
+      title: 'AI Development',
+      description: 'Using AI APIs and custom models to drive dynamic, context-aware interfaces.',
     },
     {
       icon: <Database className="h-8 w-8 text-blue-500" />,

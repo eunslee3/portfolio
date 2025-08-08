@@ -56,9 +56,9 @@ export function Header() {
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-purple-500 transition-all duration-300 group-hover:w-full"></span>
             </button>
           ))}
-          <button className="bg-purple-600 hover:bg-purple-700 transition-colors px-5 py-2 rounded-md font-medium">
+          <a href="/resume.pdf" className="bg-purple-600 hover:bg-purple-700 transition-colors px-5 py-2 rounded-md font-medium" target="_blank">
             Resume
-          </button>
+          </a>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -85,9 +85,9 @@ export function Header() {
               {item}
             </button>
           ))}
-          <button className="mt-4 w-full bg-purple-600 hover:bg-purple-700 transition-colors px-5 py-2 rounded-md font-medium">
+          <a href="/resume.pdf" className="mt-4 w-full bg-purple-600 hover:bg-purple-700 transition-colors px-5 py-2 rounded-md font-medium" target="_blank">
             Resume
-          </button>
+          </a>
         </nav>
       )}
     </header>

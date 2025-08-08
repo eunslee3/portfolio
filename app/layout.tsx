@@ -3,7 +3,7 @@ import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 import './globals.css'
 import Script from 'next/script'
-import RecaptchaWrapper from '@/components/ReCaptchaWrapper'
+import RecaptchaWrapper from '@/components/RecaptchaWrapper'
 
 export const metadata: Metadata = {
   title: 'Sam Lee',
@@ -19,6 +19,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+
   return (
     <html lang="en">
       <head>
@@ -35,7 +36,7 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
       </head>
-      <body>
+      <body className="overflow-x-hidden">
         <RecaptchaWrapper>
           {children}
         </RecaptchaWrapper>
